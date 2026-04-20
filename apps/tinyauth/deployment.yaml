@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinyauth-dp
+  namespace: tinyauth
+  labels:
+    app: tinyauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinyauth
+  template:
+    metadata:
+      labels:
+        app: tinyauth
+    spec:
+      hostNetwork: true
+      containers:
+        - name: tinyauth
+          image: ghcr.io/steveiliop56/tinyauth:v5.0.7
+          ports:
+            - containerPort: 3000
+              name: web
+          envFrom:
+            - secretKeyRef:
+                name: tinyauth-secret
+          volumeMounts:
+            - name: tinyauth-data
+              mountPath: /data
+      volumes:
+        - name: tinyauth-data
+          hostPath:
+            path: /mnt/ssd/app-data/tinyauth/data
+            type: DirectoryOrCreate

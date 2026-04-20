@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tinyauth-svc-cip
+  namespace: tinyauth
+spec:
+  selector:
+    app: tinyauth
+  ports:
+    - name: web
+      protocol: TCP
+      port: 3000
+      targetPort: web
+  type: ClusterIP

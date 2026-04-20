@@ -5,3 +5,4 @@ resources:
   # - whoami
   - beszel-agent
   - adguard
+  - tinyauth

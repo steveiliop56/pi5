@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    annotations:
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-https@kubernetescrd
+    name: tinyauth-ingress
+    namespace: tinyauth
+spec:
+    rules:
+        - host: ENC[AES256_GCM,data:bis0f7xM4cjNfm60Gz2kss+WTpuqoBQmVMZy8g==,iv:7K6rRo9giEvONWKfgSlhTaCy9beiV5fXYVJcUMCRyPw=,tag:rkMmmSaLBwI18weHJTJ56Q==,type:str]
+          http:
+            paths:
+                - pathType: Prefix
+                  path: /
+                  backend:
+                    service:
+                        name: tinyauth-svc-cip
+                        port:
+                            number: 3000
+    tls:
+        - hosts:
+            - ENC[AES256_GCM,data:iWgnI/3wRBg61z6TCagbzGKdxODHlZKVJ6URxA==,iv:yTld3EwEPcZU7O5+KdPdI1NoKXuNv/c5nBkIo7sIEZU=,tag:WX1P5kQ4tLkiIz7NoQ3VOQ==,type:str]
+          secretName: tinyauth-cert
+sops:
+    lastmodified: "2026-04-20T18:07:31Z"
+    mac: ENC[AES256_GCM,data:VjKYH23+Yys1w1+Q2XKowoi5igPhvCmvIaJCsv7qkJSXzfR/Ld1wB6j+W8v8w2QIUKTcRGaIwHx6OnCJ0xu+f4EejBgFIpDutmiPK+N992zR1HP6Dfvk9pUf9viE09vISZb7zPGUT+gF+rX+nSPWL7UbcvdH12vPPKEOBGre80U=,iv:zbN+9aHkZSEznvFdcN8cbBR4jI6LGDJP0OexHdbO5yY=,tag:iF3MB1mCG9W+/OvMOUiqaA==,type:str]
+    pgp:
+        - created_at: "2026-04-20T18:07:31Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmARAAjToeSpx0uW3m26Xbyje4I9d/TS0Y4Z9WdacVun7qAe71
+            76O7dEZNf5+GDotJSCHrO6o/YRq9EOD8jsmwuGXunbAsoxvU4OKAy20vI5lIEfjx
+            8vd0bh8q8ppjNwZGorNP8c/rqqL4EerV7Mfxcq/crfwBHcR2Ja34lnDwiPw6JoRt
+            bsINqUiUIzlORKVWdY4wkqR6a6L7tsyIDKerdFu9AwBxiuY2Jy286Ym+jREtX5L7
+            rfGbR0/xlT/oPG4hBI/yanqXWQg1GpDT2jvnsGcZKumNRxfXWlXJZKrkj25lrwQs
+            8bRUAn0rUPdsJmjuPUUVOUAFDi7WWEtfCIDvkFNoABWj2ZMiXdupCbQL1synHNZF
+            jfNL5u9d/+QgLVDXxnsTFHC1reAKv4RsxLSrZoGZPsGELIx76Le7goOxEDcps+4B
+            r3lqe86yN6VQ58/71uSIys+ysVj65NrMqbKFLxcMydHtrIFh5IMUx0EFbdo/qUb+
+            NJFbu/i4bNFvjBOEfyjA0szhWK4U+GYimAMDZ4chVjpQD3XF2T1VLLvhhsBd7jo8
+            b5Fgmx+hvovekG9aKG/Iq3hCsKFQMpl5GAn94OEB+c9pA3nh5zZY0XyFCogu+lyf
+            l63GpOZpnnEGQ2g1xc6owwNdSwMu6dBdPpciqH1nhWAzgA615iJ5tSwpzOupCijS
+            XAG7no2Uebtio9EjUd7YL1Y+84BtEacF0uerg3yVbMJ+sqYIFpchdln9sPvYnkXT
+            za9c5usD8g00MeG5X/cshP/U7y2UmP98aC7z/Vgy4fE36iZDiIbGSDufcFy8
+            =tkcu
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts)$
+    version: 3.12.2
