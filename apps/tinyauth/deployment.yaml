@@ -23,7 +23,7 @@ spec:
             - containerPort: 3000
               name: web
           envFrom:
-            - secretKeyRef:
+            - secretRef:
                 name: tinyauth-secret
           volumeMounts:
             - name: tinyauth-data
