@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beszel-agent-dp
+  namespace: beszel-agent
+  labels:
+    app: beszel-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beszel-agent
+  template:
+    metadata:
+      labels:
+        app: beszel-agent
+    spec:
+      hostNetwork: true
+      containers:
+        - name: beszel-agent
+          image: henrygd/beszel-agent:0.18.4
+          ports:
+            - containerPort: 45876
+              name: beszel-ssh
+          env:
+            - name: LISTEN
+              value: "45876"
+            - name: KEY
+              valueFrom:
+                secretKeyRef:
+                  name: beszel-agent-secret
+                  key: ssh-key
