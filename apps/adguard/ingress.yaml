@@ -3,8 +3,8 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: cloudflare-issuer
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    # traefik.ingress.kubernetes.io/router.middlewares: def@kubernetescrd
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-to-https@kubernetescrd
   name: adguard-ingress
   namespace: adguard
 spec:
