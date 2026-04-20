@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
   # - whoami
-  - cert-manager
   - beszel-agent
   - adguard
