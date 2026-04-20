@@ -1,0 +1,42 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+    name: cloudflare-issuer
+spec:
+    acme:
+        email: ENC[AES256_GCM,data:tyOlmzQx8A1Up4Wepq3zsLr7kLGcnw==,iv:QSMUw7HexwHlYXv+tf1Kl28MOKA1EVlZ8LSGGAFERmk=,tag:Hz+8VMOPi27snqa3mcWp3w==,type:str]
+        server: https://acme-v02.api.letsencrypt.org/directory
+        privateKeySecretRef:
+            name: cloudflare-issuer-account-key
+        solvers:
+            - dns01:
+                cloudflare:
+                    apiTokenSecretRef:
+                        name: cloudflare-api-token-secret
+                        key: apiToken
+sops:
+    lastmodified: "2026-04-20T16:33:18Z"
+    mac: ENC[AES256_GCM,data:05/lM92s49oOe10MOTGS/ssjkVlR6PSDxdRTxXLBW0rVN5I6LrCbuZEmxsnisZ/DnlcDAPeIHGxMn8Yh+FGgOk8n4BwBd+/2kZZTLJwUcOpjuEyFcSTjOzk2r8Ezep2WSU8oKQpkielwJKwslmtmt/As81ICjequ9MCvSu7U0Vw=,iv:HYW9x2W7tQjocHUXoXkYffAEg0b5/B7Wqs3/toJCaDE=,tag:MpJ3gLhq1xDofkkAk/vU5w==,type:str]
+    pgp:
+        - created_at: "2026-04-20T16:33:18Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmAQ/+OGgWvgHrzgBVeDZNzV6ERiCll7gMTLKYsEb07v038upN
+            cZqkbEHQ/hY32Xk+SLe4/lkpu9Djf5CJIsMm/I0grga/Qa+//HFdUql6PJp0hsmu
+            JcbmR4V+HHK8Zom/vrBJLSGv/T/87gDW2CQeJNI/MkHG1dsApfVuL4eHYk1MvnA0
+            CNMw84lEuEJpFFrwqxM8JWzOWbmeOJY0O8N8QvyH/70Ewg8QqlDAUU2Ab7YoBSQP
+            IBw+esat7NckOsOCS0ZrWAUqFJbPLTD/BiJ/8e7SsdDm8gWQcysRKKuwnifz9NO9
+            JM4cfsbX1Cm9HUQ4WqqgiNPVE0ve1XQVsUVqqH3PaWGjOOGrmjS5/ybUH4UJhg3j
+            h7R+7v4wULFaei3mLKopH9xCPnYIvk2l6Crgwx+0jyScwIiPDmepAECgeCQk+x+0
+            SY42wOJgDvaCrMCSzz2WYu6faNiMZzoQyH/eiwIwvLr9fzOeNjPcoT/hA6MoNkGL
+            OEGGnW2MCl4n49MNZHucHxDmAfZDT3g6+GeSMRao8PHJOwQk4o7wtEtpV75iUOkL
+            u6U31qWBknuDPEzEoZzHw1G2Gn3B2mkyaEB2tEhHVTw4gmtHI36pLQ7ezYA6ZxqW
+            2YKgSEJTz/YjdZAySP7XFqckc4LVuMEyqufHaqRh2ubhPNAeYE7DpjK6dwwY0cHS
+            XgF3HvSc1MgsxmtA0mm4F73Cpkn/agXuMK/PBv8/xFCTno3PJ2NdZz7IrXV/tGPj
+            75NP2/vHx3bRu16C+MTJ8dc1HiWeK7vyXkgRJ7WwjdUtZxvdO47aJwQazm9zFbk=
+            =yZ83
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken)$
+    version: 3.12.2
