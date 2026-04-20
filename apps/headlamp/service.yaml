@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: headlamp-svc
+  namespace: kube-system
+spec:
+  ports:
+    - port: 4466
+      name: http
+      targetPort: http
+  selector:
+    app: headlamp
+  type: ClusterIP
