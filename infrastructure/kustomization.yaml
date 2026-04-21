@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - clusterrolebinding.yaml
   - cert-manager
   - traefik
