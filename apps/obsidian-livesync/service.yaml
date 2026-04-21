@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: obsidian-livesync-svc
+  namespace: obsidian-livesync
+spec:
+  ports:
+    - port: 5984
+      name: db
+      targetPort: db
+  selector:
+    app: obsidian-livesync
+  type: ClusterIP

@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    annotations:
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-https@kubernetescrd
+    name: obsidian-livesync-ingress
+    namespace: obsidian-livesync
+spec:
+    rules:
+        - host: ENC[AES256_GCM,data:DnQAALT2gmx6oinHApVtggvyiD329vk0HZV0qcLs2Dg8f6mGXA==,iv:opqPYxZvMuaIsMay2WjkTKBAyVNfNe1Oaeq36UGYn+4=,tag:RKLZMZ5d5x84VnJ+lh6s7g==,type:str]
+          http:
+            paths:
+                - pathType: Prefix
+                  path: /
+                  backend:
+                    service:
+                        name: obsidian-livesync-svc
+                        port:
+                            number: 5984
+    tls:
+        - hosts:
+            - ENC[AES256_GCM,data:2ImcnX9HF/++NJ59BPxvKNmasdJMLWRoVrXlxtLzhV+ZTxgHMw==,iv:dY38LjOi+h5Aua5vB1Rve5jxpFzCIGMWTkL/kyUfUCs=,tag:yRvUHT87dp62CWPD7fRgxg==,type:str]
+          secretName: obsidian-livesync-cert
+sops:
+    lastmodified: "2026-04-21T13:38:31Z"
+    mac: ENC[AES256_GCM,data:+FQZznnofvSskzLVpzA9kvrP7XTxz8viKNzV14lCfNT1NibBdJ9wB0H/TbM1QLMGKhKQcXea1DeQ/iW8PIXpe+1wHfdxAqeU654gZei/M9jkXTWNUP+BWfY/X4AQeYY98OpQPoP3sxGi35cd001ao0txz2IdGR29X9DyDEUK6K8=,iv:GHeXKJPTnsVSUCfPupQIcIcDGReguHBh2bO6hAK2sTM=,tag:8b3+IAyeuZQ5hpPr85lskg==,type:str]
+    pgp:
+        - created_at: "2026-04-21T13:38:31Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmARAAo1ADcODbRD6y8ds+3fBVVCF0Dlec91Baoy6Vrw7GxTat
+            4fUrDowH4IPSSoyiOru1gi0CngANmxgHlL/gxoBZdLx4BbrJWY4+9YjwxqjxOVa2
+            hp4Uk6BJv+LWgsjVrGJ2Wu7MWIscmMCqWJrdY2WR7AZJjIzda7QvC0YOioUnsP5C
+            DTDmF2Iz/r8CrqbtfHZjs5a38ScC+tEv/k4at0LYUkiLnlEbsWXEaD3JfXVN2j38
+            CdRPYdw2bRMFqDstRzrGwJAwghzKYbPZ7B5O+mnehsEdaxQbAnA1ArpaBNkOdYUk
+            JSDCr+1iCp39ZBAA5muCk1blFKh0ryk/q1o/F1n4xO11QkvHXZR+0yLmiJMUYqlQ
+            LQPetlYutiQeqdlY5YJw75yRlOV4SI+oFqtz/E63gXR5/I3imZ23dgrgeQ76o4uQ
+            ouOUOIeJe21l85nvtzzAlEEVsPOkTyONqVKFTymAiZ2q9ZTn9fcGRVfHqhtvc00A
+            uENg+wnTRC1PnwrLt0G2bgvp69Vb4fxYg2krPFxVhbqVTze4DLkg7icJM7xbg6K6
+            yKd6BBDMWgZ+F1DGWowPXJc69izm/5XJQVlGIElHISS87n3tnXDOQ76tBhog1iTE
+            TKrFw0GEMvDb+BGJR/S1b+LVLuES1OjvC13wpjtyDxfFGj0QXwOs/c5bc7C9ITDS
+            UQH4oK2+Y/OHtxcG9OgsgBr7MBmiezcv3FfPsO4Me+wEEuX45bzD3OSFNlJEkGmf
+            29XBFC5d4Ds/bkb56Ix4aWni7XyE9y59NMiMXiQYb7oqLw==
+            =1WDl
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts)$
+    version: 3.12.2

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: obsidian-livesync-dp
+  namespace: obsidian-livesync
+  labels:
+    app: obsidian-livesync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: obsidian-livesync
+  template:
+    metadata:
+      labels:
+        app: obsidian-livesync
+    spec:
+      hostNetwork: true
+      containers:
+        - name: obsidian-livesync
+          image: couchdb:3.5.1
+          ports:
+            - containerPort: 5984
+              name: db
+          envFrom:
+            - secretRef:
+                name: obsidian-livesync-secret
+          volumeMounts:
+            - name: obsidian-livesync-data
+              mountPath: /opt/couchdb/data
+            - name: obsidian-livesync-conf
+              mountPath: /opt/couchdb/etc/local.ini
+      volumes:
+        - name: obsidian-livesync-conf
+          hostPath:
+            path: /mnt/ssd/app-data/obsidian-livesync/data/conf/local.ini
+            type: FileOrCreate
+        - name: obsidian-livesync-data
+          hostPath:
+            path: /mnt/ssd/app-data/obsidian-livesync/data/couchdb
+            type: DirectoryOrCreate
