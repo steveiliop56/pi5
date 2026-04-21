@@ -1,0 +1,38 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+    name: ENC[AES256_GCM,data:3kAaQ43O95CSCbMKy0faSNQWOjONJsIr48Bhg1g=,iv:agbeDVwgo/9sxmxQbU6DZS6eG21BHW6YQYBW+CwPaMk=,tag:h0QpC3pSA0tgw+DPQFh9cQ==,type:str]
+subjects:
+    - kind: User
+      name: ENC[AES256_GCM,data:NdY6t0YAyhzohMrz00+zheYp+NuWjQ==,iv:fsP4W/V3JvdPQjH50mCefF8JpdNsem1lDxdEBSyk0j8=,tag:YBKd/Y7yWFggxFk+3vCJHQ==,type:str]
+      apiGroup: rbac.authorization.k8s.io
+roleRef:
+    kind: ClusterRole
+    name: ENC[AES256_GCM,data:gSbuMJq3zB3hczUC2Q==,iv:pkPVNSCafURkHM0BdD7oiayTyZtiE/oF4W672v+G2Io=,tag:MxhXGVmmFHzWNHiAf9f0Yg==,type:str]
+    apiGroup: rbac.authorization.k8s.io
+sops:
+    lastmodified: "2026-04-21T13:18:32Z"
+    mac: ENC[AES256_GCM,data:kYRRMke3/abjPssJKNGeLZFgvwrWblxdFs28AYijRESNPv5+Iji9PftkgHpJZbNtxB/c4wRBKU1UdcUoT0lypOTETFOwSt6WonIarFCOUQ74vhA1Syjg0gFBtKNTFo/RUzFL9Itar85xzGMRcE9pVlysgg8OKvWPv7QQBzX2LaU=,iv:QEi6N7HMjUkGOzevELCTjdTcTwcj5tNqSrTn5wCFQ/U=,tag:FvR1J/fvrvM6ggZksrgDSA==,type:str]
+    pgp:
+        - created_at: "2026-04-21T13:18:32Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmAQ/8DIodlB57GHyZkMOzGsb/RChwHF/p1rIPtbwxZILy132Y
+            aim6Sn/0+ltLmvAE3C81hiWWy60rtn9xGMwuvjncUljND4XVUgYah7F8KPxqD1yw
+            de+UYg+IcHZrqrxiuJxlqC8Yqdm1++jsMOWq5o98l40GcpQlJwd0aJrhzVC8UetE
+            dubqJzwzY2PQ/jsqKC2xlwpoNnODda0P8kXKCMU7EqZDKrBJX+ov/1hoBhGExjUK
+            A/aKtwm+BqDzwplrSERxIX2KPShziGSKvObZFo3KNNlstJhdfuN9QMJRVy3E6kYs
+            fh/Bl6ljb0RRLcDAlJs9cYVm6SHwkFGC1Zqpvk7pwvFC2jrFvkgNpgzNracLtJgK
+            p01TGf2C+mDmJyxKDiELYObEzLlmugUWfPmIxZXJnCGlpf1a7IZKa4/zty5Kx9mY
+            CsRAAbtEl05iwSy1I5AT/INgvLcnTU/jpIwHOZiHm0xp6CjreX/bgmiEAt2vhgm/
+            Cn7p6qX04uQdmX0LSqUoZKBJvmYUCB3uUrdsaX6JpbU0VZ+58inzhASTrSFM/9a6
+            Gz3gB1LxzvNKFo/nteJ8XVqHBzeL91bbllLDfWKYY8c07Xv6zgw3FXs9HtfeQVo1
+            IHXekIOmYpHo82KcB3/zXbpV+nC/Opr0idEAUSsm0WHmFxGSx5dMUuQwxQNzI1XS
+            XgHQBo4i18jsVvsj97TJiLmKzCxnlgRPfrllhyCLPKAKjZNBtrRw/O7z56qs3HOY
+            gBq3V1/S/qDPsQ6VZYs93o/+irs5F7jbmnxBfajoTKqZdfPwbkxac8RSlXJPTUw=
+            =zaVo
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts|name)$
+    version: 3.12.2
