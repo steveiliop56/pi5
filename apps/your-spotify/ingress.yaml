@@ -4,7 +4,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: cloudflare-issuer
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-https@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-https@kubernetescrd,your-spotify-strip-backend-prefix@kubernetescrd
   name: your-spotify-ingress
   namespace: your-spotify
 spec:
