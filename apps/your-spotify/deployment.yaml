@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-spotify-backend-dp
+  namespace: your-spotify
+  labels:
+    app: your-spotify-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-spotify-backend
+  template:
+    metadata:
+      labels:
+        app: your-spotify-backend
+    spec:
+      containers:
+        - name: your-spotify-backend
+          image: ghcr.io/yooooomi/your_spotify_server:1.19.0
+          ports:
+            - containerPort: 8080
+              name: api
+          envFrom:
+            - secretRef:
+                name: your-spotify-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-spotify-frontend-dp
+  namespace: your-spotify
+  labels:
+    app: your-spotify-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-spotify-frontend
+  template:
+    metadata:
+      labels:
+        app: your-spotify-frontend
+    spec:
+      containers:
+        - name: your-spotify-frontend
+          image: ghcr.io/yooooomi/your_spotify_client:1.19.0
+          ports:
+            - containerPort: 3000
+              name: web
+          env:
+            - name: API_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: your-spotify-env
+                  key: API_ENDPOINT

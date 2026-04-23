@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-spotify-mongo-dp
+  namespace: your-spotify
+  labels:
+    app: your-spotify-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-spotify-mongo
+  template:
+    metadata:
+      labels:
+        app: your-spotify-mongo
+    spec:
+      containers:
+        - name: your-spotify-mongo
+          image: mongo:6.0.27
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+      volumes:
+        - name: mongo-data
+          hostPath:
+            path: /mnt/ssd/app-data/your-spotify/data
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-spotify-mongo-svc-cip
+  namespace: your-spotify
+spec:
+  selector:
+    app: your-spotify-mongo
+  ports:
+    - name: mongo
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-spotify-backend-svc-cip
+  namespace: your-spotify
+spec:
+  selector:
+    app: your-spotify-backend
+  ports:
+    - name: api
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-spotify-frontend-svc-cip
+  namespace: your-spotify
+spec:
+  selector:
+    app: your-spotify-frontend
+  ports:
+    - name: web
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  type: ClusterIP
