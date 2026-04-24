@@ -4,7 +4,7 @@
   "addLabels": ["renovate"],
   "automerge": false,
   "kubernetes": {
-    "managerFilePatterns": ["/^deployment\\.yaml$/"]
+    "managerFilePatterns": ["/(^|/)deployment\\.ya?ml$/"]
   },
   "flux": {
     "managerFilePatterns": ["/(?:^|/)gotk-components\\.ya?ml$/"]
