@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: youtrack-dp
+  namespace: youtrack
+  labels:
+    app: youtrack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: youtrack
+  template:
+    metadata:
+      labels:
+        app: youtrack
+    spec:
+      containers:
+        - name: youtrack
+          image: jetbrains/youtrack:2026.1.12848
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: tinyauth-data
+              mountPath: /data
+      volumes:
+        - name: tinyauth-data
+          hostPath:
+            path: /mnt/ssd/app-data/tinyauth/data
+            type: DirectoryOrCreate
