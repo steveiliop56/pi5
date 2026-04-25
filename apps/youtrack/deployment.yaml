@@ -22,10 +22,28 @@ spec:
             - containerPort: 8080
               name: http
           volumeMounts:
-            - name: tinyauth-data
-              mountPath: /data
+            - name: youtrack-data
+              mountPath: /opt/youtrack/data
+            - name: youtrack-conf
+              mountPath: /opt/youtrack/conf
+            - name: youtrack-logs
+              mountPath: /opt/youtrack/logs
+            - name: youtrack-backups
+              mountPath: /opt/youtrack/backups
       volumes:
-        - name: tinyauth-data
+        - name: youtrack-data
           hostPath:
-            path: /mnt/ssd/app-data/tinyauth/data
+            path: /mnt/ssd/app-data/youtrack/data/app
+            type: DirectoryOrCreate
+        - name: youtrack-conf
+          hostPath:
+            path: /mnt/ssd/app-data/youtrack/data/conf
+            type: DirectoryOrCreate
+        - name: youtrack-logs
+          hostPath:
+            path: /mnt/ssd/app-data/youtrack/data/logs
+            type: DirectoryOrCreate
+        - name: youtrack-backups
+          hostPath:
+            path: /mnt/ssd/app-data/youtrack/data/backups
             type: DirectoryOrCreate
