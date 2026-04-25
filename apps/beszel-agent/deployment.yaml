@@ -18,7 +18,7 @@ spec:
       hostNetwork: true
       containers:
         - name: beszel-agent
-          image: henrygd/beszel-agent:0.18.4
+          image: henrygd/beszel-agent:0.18.7
           ports:
             - containerPort: 45876
               name: beszel-ssh
