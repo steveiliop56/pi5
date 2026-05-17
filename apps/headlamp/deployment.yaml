@@ -30,6 +30,26 @@ spec:
               value: "headlamp"
             - name: HEADLAMP_CONFIG_SERVICE_VERSION
               value: "v0.41.0"
+            - name: HEADLAMP_CONFIG_OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: headlamp-oidc-secret
+                  key: HEADLAMP_CONFIG_OIDC_CLIENT_ID
+            - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: headlamp-oidc-secret
+                  key: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
+            - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
+              valueFrom:
+                secretKeyRef:
+                  name: headlamp-oidc-secret
+                  key: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
+            - name: HEADLAMP_CONFIG_OIDC_SCOPES
+              valueFrom:
+                secretKeyRef:
+                  name: headlamp-oidc-secret
+                  key: HEADLAMP_CONFIG_OIDC_SCOPES
           ports:
             - containerPort: 4466
               name: http
