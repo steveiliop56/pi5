@@ -15,7 +15,6 @@ spec:
       labels:
         app: obsidian-livesync
     spec:
-      hostNetwork: true
       containers:
         - name: obsidian-livesync
           image: couchdb:3.5.1
