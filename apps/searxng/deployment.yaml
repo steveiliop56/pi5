@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng-dp
+  namespace: searxng
+  labels:
+    app: searxng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: searxng
+  template:
+    metadata:
+      labels:
+        app: searxng
+    spec:
+      containers:
+        - name: searxng
+          image: ghcr.io/searxng/searxng:2026.6.2-e964708c0
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: searxng-config
+              mountPath: /etc/searxng
+            - name: searxng-data
+              mountPath: /var/cache/searxng
+      volumes:
+        - name: searxng-config
+          hostPath:
+            path: /mnt/ssd/app-data/searxng/config
+            type: DirectoryOrCreate
+        - name: searxng-data
+          hostPath:
+            path: /mnt/ssd/app-data/searxng/data
+            type: DirectoryOrCreate
