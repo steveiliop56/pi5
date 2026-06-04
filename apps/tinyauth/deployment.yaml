@@ -15,7 +15,6 @@ spec:
       labels:
         app: tinyauth
     spec:
-      hostNetwork: true
       containers:
         - name: tinyauth
           image: ghcr.io/steveiliop56/tinyauth:v5.0.7
