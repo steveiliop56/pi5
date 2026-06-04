@@ -8,6 +8,6 @@ resources:
   - adguard
   - obsidian-livesync
   - youtrack
-  # - warpgate
+  - warpgate
   # - minecraft
   # - searxng

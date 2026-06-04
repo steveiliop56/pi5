@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warpgate-dp
+  namespace: warpgate
+  labels:
+    app: warpgate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warpgate
+  template:
+    metadata:
+      labels:
+        app: warpgate
+    spec:
+      containers:
+        - name: warpgate
+          image: ghcr.io/warp-tech/warpgate:0.24.1
+          ports:
+            - containerPort: 8888
+              name: http
+            - containerPort: 2222
+              name: ssh
+          volumeMounts:
+            - name: warpgate-data
+              mountPath: /data
+      volumes:
+        - name: warpgate-data
+          hostPath:
+            path: /mnt/ssd/app-data/warpgate/data
+            type: DirectoryOrCreate
