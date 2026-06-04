@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: warpgate-svc-cip
   namespace: warpgate
+  annotations:
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    traefik.ingress.kubernetes.io/service.serverstransport: warpgate-transport@kubernetescrd
 spec:
   selector:
     app: warpgate
