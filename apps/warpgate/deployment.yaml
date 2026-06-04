@@ -15,6 +15,34 @@ spec:
       labels:
         app: warpgate
     spec:
+      initContainers:
+        - name: warpgate-setup
+          image: ghcr.io/warp-tech/warpgate:0.24.1
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+
+              if [ ! -f /data/warpgate.yaml ]; then
+                echo "No config found, running unattended setup..."
+                warpgate -c /data/warpgate.yaml  unattended-setup \
+                  --data-path /data \
+                  --http-port 8888 \
+                  --ssh-port 2222 \
+                  --record-sessions
+              else
+                echo "Config already exists, skipping generation."
+              fi
+          env:
+            - name: WARPGATE_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: warpgate-secret
+                  key: WARPGATE_ADMIN_PASSWORD
+          volumeMounts:
+            - name: warpgate-data
+              mountPath: /data
       containers:
         - name: warpgate
           image: ghcr.io/warp-tech/warpgate:0.24.1
