@@ -5,11 +5,13 @@ metadata:
         cert-manager.io/cluster-issuer: cloudflare-issuer
         traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
         traefik.ingress.kubernetes.io/router.middlewares: infrastructure-redirect-https@kubernetescrd
+        traefik.ingress.kubernetes.io/service.serversscheme: https
+        traefik.ingress.kubernetes.io/service.serverstransport: warpgate-transport@kubernetescrd
     name: warpgate-ingress
     namespace: warpgate
 spec:
     rules:
-        - host: ENC[AES256_GCM,data:Q5rkFmgUt+skjr7FU1lGtUIM8nnYPs+VYGvu+Q==,iv:kaVtdZSj2bTJPkDa0YDj30JNKxL/fApMmunrvFya22M=,tag:CG1G6dodlH6Al9uLYM5StQ==,type:str]
+        - host: ENC[AES256_GCM,data:DBt3lpgHU7er/bIa8P1wjlhwfrtMMzrrilhoBA==,iv:CdSg/qWBpDGrCha3765ZnB+J3yUAOPENn2og6M3IuxM=,tag:OpGyr0MH9rmMD6RuT3Ztjw==,type:str]
           http:
             paths:
                 - pathType: Prefix
@@ -21,30 +23,30 @@ spec:
                             number: 8888
     tls:
         - hosts:
-            - ENC[AES256_GCM,data:eZqdiZGtHHytL4DhzucxMDDhehFwZM6qA3kdHg==,iv:GR9nG9KPCHavkCeA44kFj99DltpHm5PTDGLBdIdPXJw=,tag:nTHh+p4pthK3fEDEWwhBHg==,type:str]
+            - ENC[AES256_GCM,data:W+YX5ou3xKKpn1cvfp+146+PXnfB/7hc6Oivtg==,iv:qX+3iPllv2iOzV4JRAfL3u0B56AoybxNUvol+VCgQdQ=,tag:i2nzrhRJ2CxMUL8jNKlFZw==,type:str]
           secretName: warpgate-cert
 sops:
-    lastmodified: "2026-06-04T15:20:59Z"
-    mac: ENC[AES256_GCM,data:03Zn5tth2lwpvPVxjgsFRMREwv0+7kUpiZktg/HQUpljQLwLNWo9GRqmUISytFGEMhKwVDduhfW9zRVhezyv68u2RjdAj5Tm0PkBRR2emDjQ/QGDTiaNf5XhlWK4cICuOqoPtfwTbPe+0WHM42HBQoipPXdeqbmPq4N6yFT8eZg=,iv:QoS+q1v/pE4zyAV2WNyAdoc5ZJwL8e5DEdcvNUCedRw=,tag:8AnAZimhCwgp2wqGx9QOKg==,type:str]
+    lastmodified: "2026-06-04T16:03:17Z"
+    mac: ENC[AES256_GCM,data:+UI4TWWZybM1wbKV4+K7iGk58h+AtZgpsE9lU+JJVddWqHo9lvYUjdfZfSncx5M3XGbBFNdLg+Tw//uPrzsZtmLSVMIsr0N2wD+s6XOh+G+5CMF1h36GneWOs90kUYv9YBfzEu0v/KL1+GepfxnqqjH8F2F5FHa+e1T1p7MHWuM=,iv:R2R444ofW6Uid3FLGPNC9sHz1mhUp2fAkOSkfdvJYXE=,tag:cinAIEKoqYoMgNKX5fBOlw==,type:str]
     pgp:
-        - created_at: "2026-06-04T15:20:59Z"
+        - created_at: "2026-06-04T16:03:17Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA1R72LzcpgpmAQ//dvkgEKEfrsGdQcy7HIdq12Q7gDRBJY8pYFnVBXYc+Cqs
-            EeO8WLS5Pj2jjY+TLdyRA9mEJCI3QHldkSYmL2Ea4JfdStQmr7otqvsVyWJJOyid
-            tfNw7r0WStweOa9gh4sxBPMBGJAzLVK/D4T5gjQkf2QqcjLtE6zP7yPcSFyftbV2
-            9jBwrND8f614z1vPx6J7DkFhAwBDkL5MbcBloINkndVt4LROTRbjbRriApdYgqwl
-            s5A+wuQ+kB/5ZT/NiaWetHWpnFZ+6/vcjjHF6dfN2XxKAJo/tSknbOo6qLYxNDZP
-            73bGkgSN5pZ0UxSgifiC1Ilezadtt8MMJV5RTttoFT5phDLO/NHrUHleRP+LBwVd
-            61+F3eNiLQNx+wfB3L+zI7Nr1sj93o6+cxi2bEiOlJUm6WqzRHuikaSOUU1upzov
-            bK/5oKh1tz0+e9HrH0FsVwdxFMO+Ui/zn6gPVOcfrJEUG/F5tq1M332Z3B0dVWFb
-            bffLkL6h0muhl1Fhr6jwfqFYFb5mWJs5K3RjtMKy7VxHuE+PvEd+0ZIfoa2kCBPI
-            u1bc8eF1izm1GCBKJ/niQrnGKtpNVBhehqq/10DEwNkkd6PqjqIaio3XpFaMbI0c
-            Z7c5+GVfAx+vMmuyHzmDq9on1K2KEA5jhCLJZJA4sFAxUKMUdGzcEqphGrRMGEPS
-            XgEn3dwP6L4wh0z2zK9Vau9gAw5qOBFbvY9duIZuBSZOr69+e4OUdXwZYvTA6O+H
-            oaXLiSpWM/eaJWxqQzSMRe5zYlCPxXg4lw3qX53qWN7LhICYJ9yKuQSgbgM4S3A=
-            =jJnp
+            hQIMA1R72LzcpgpmAQ//fKjw9g50BDHk/Yu+8uOKWlB8uvSDUWjdwuIwsPCIqV5K
+            k2vm3TrByAu81KGmJVapw6dyLpdaFXjQtljYiZZpAi73Y84yjIRBArNfeaZ/oW+i
+            kI0uYJCJ7pjrZPyDFUb0guTXtNRv7cGa/0BzBkifdfhAqfHKrXM+7Fdx2H4cAtiK
+            6OUYZsaJLULABIgnF4Zylon+4XwviZdLSjxEZ6CSE4MaGxqxisXiTlD+SON4Hlyg
+            2+zhNEPlsuYRraV1vKa+/2HIHbsa77r6VGJpd0Ro9l4xQLi7g5JdXS23R2xDhxvE
+            fhmUaRGUe4ntX6XfzxhqQskUKmV46IY+Em5Qo7ABIpDmBhq24uHyOpVe4GSLrxT0
+            AEocmTgfVj7X2Astxrbs8O1+YVWC2BKohFlmhUeCR9B3TRokZqlUgHloBFuvmrYL
+            YjdDZpVuDoaufm4H7X39zFZpF+jZF5sgc1m/Hhr/x1zwWsPpU+ScyzW6QYNKZOEk
+            +Kn6Q5WazgG+lSELfm4fHPUgxhsW/hVVjYP0dVjVQ1zs3gP+d7ir8i/2CruoISu3
+            +22M1I0NoSeOZfCAbMv7VOfouWmwj9tL9d6SezRIODGbcDteRmoigsGCF0JEoqlo
+            +eSVF/7OquHS0I4bgYPLlEzfdKg2omSZrDZH66hJ34azr0iCxeAdd4gX97ObQQDS
+            XgGjTo3lB+Q0yCTC/YYgEIbqh0osS8KgmJccBl+9KSVsHZfiLY6Kto3JcNTC4JTS
+            HqjCC4BH0jqWxBV769CQAxKwOruqrvsKRBPbFBZ+0PkzKSp5h7PKF29lfqD0wh4=
+            =s37g
             -----END PGP MESSAGE-----
           fp: 08083A92DBB719D2E10998259B44720A645D6802
     encrypted_regex: ^(data|stringData|email|apiToken|host|hosts)$
