@@ -11,5 +11,4 @@ spec:
       protocol: TCP
       port: 80
       targetPort: http
-  externalTrafficPolicy: Local
   type: ClusterIP
