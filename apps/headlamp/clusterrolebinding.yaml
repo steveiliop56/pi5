@@ -11,7 +11,7 @@ subjects:
     name: headlamp-admin
     namespace: kube-system
   - kind: User
-    name: steveiliop56
+    name: steveiliop56@gmail.com
     apiGroup: rbac.authorization.k8s.io
   - kind: User
     name: steve@raspberrypi5.lan
