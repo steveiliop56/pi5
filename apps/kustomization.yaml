@@ -12,3 +12,4 @@ resources:
   - bifrost
   # - minecraft
   # - searxng
+  - whoami

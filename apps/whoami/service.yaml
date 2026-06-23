@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: whoami-np
+  name: whoami-svc-cip
   namespace: whoami
 spec:
   selector:
