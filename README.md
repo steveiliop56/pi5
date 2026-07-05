@@ -5,21 +5,23 @@ GitOps repository for my Raspberry Pi 5 Kubernetes cluster, managed by [Flux CD]
 ## Structure
 
 ```
+├── core/                   # Core components 
 ├── apps/                   # Application workloads
 ├── clusters/
 │   └── pi5/
 │       └── flux-system/    # Flux CD bootstrap manifests
-└── infrastructure/         # Cluster-level infrastructure
+└── infra/         # Cluster-level infrastructure
 ```
 
 ## GitOps with Flux
 
 Flux is bootstrapped into the `clusters/pi5/flux-system` directory and watches this repository. It reconciles two top-level Kustomizations:
 
-- **infrastructure** - deployed first; sets up cert-manager and Traefik.
-- **apps** - deployed after infrastructure is ready; manages all application workloads.
+- **core** - deployed first; sets up cert-manager
+- **infra** - deployed after core; sets up cluster-level infrastructure (e.g., cluster issuer, middlewares)
+- **apps** - deployed after infra is ready; manages all application workloads.
 
-Both Kustomizations run on a 10-minute interval and use SOPS for secret decryption.
+All Kustomizations run on a 10-minute interval and use SOPS for secret decryption.
 
 ## Secrets
 

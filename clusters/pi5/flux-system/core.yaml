@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: core
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./apps
+  path: ./core
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -18,6 +18,3 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
-  dependsOn:
-    - name: core
-    - name: infra
