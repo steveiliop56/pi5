@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:
         - name: warpgate-setup
-          image: ghcr.io/warp-tech/warpgate:0.26.0
+          image: ghcr.io/warp-tech/warpgate:0.26.1
           command:
             - /bin/sh
             - -c
@@ -45,7 +45,7 @@ spec:
               mountPath: /data
       containers:
         - name: warpgate
-          image: ghcr.io/warp-tech/warpgate:0.26.0
+          image: ghcr.io/warp-tech/warpgate:0.26.1
           ports:
             - containerPort: 8888
               name: http
