@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tinyauth
-          image: ghcr.io/tinyauthapp/tinyauth:v5.1.0-rc.3
+          image: ghcr.io/tinyauthapp/tinyauth:v5.1.0
           ports:
             - containerPort: 3000
               name: web
