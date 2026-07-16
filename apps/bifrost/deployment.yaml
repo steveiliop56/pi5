@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: bifrost
-          image: maximhq/bifrost:v1.6.2
+          image: maximhq/bifrost:2.1.29
           ports:
             - containerPort: 8080
               name: http
