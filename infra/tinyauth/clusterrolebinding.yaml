@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tinyauth-ingress
+subjects:
+  - kind: ServiceAccount
+    name: tinyauth
+    namespace: tinyauth
+roleRef:
+  kind: ClusterRole
+  name: tinyauth-ingress
+  apiGroup: rbac.authorization.k8s.io
