@@ -15,6 +15,7 @@ spec:
       labels:
         app: tinyauth
     spec:
+      serviceAccountName: tinyauth-sa
       containers:
         - name: tinyauth
           image: ghcr.io/tinyauthapp/tinyauth:v5.1.1-rc.1

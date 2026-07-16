@@ -4,7 +4,7 @@ metadata:
   name: tinyauth-ingress
 subjects:
   - kind: ServiceAccount
-    name: tinyauth
+    name: tinyauth-sa
     namespace: tinyauth
 roleRef:
   kind: ClusterRole
