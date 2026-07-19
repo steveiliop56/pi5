@@ -15,7 +15,7 @@ metadata:
   namespace: infra
 spec:
   forwardAuth:
-    address: http://tinyauth-svc-cip.tinyauth.svc.cluster.local:3000
+    address: http://tinyauth-svc-cip.tinyauth.svc.cluster.local:3000/api/auth/traefik
     authResponseHeaders:
       - remote-user
       - remote-name
