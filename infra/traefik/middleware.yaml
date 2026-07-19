@@ -16,4 +16,10 @@ metadata:
 spec:
   forwardAuth:
     address: http://tinyauth-svc-cip.tinyauth.svc.cluster.local:3000
-    authResponseHeaders: remote-user,remote-name,remote-email,remote-groups,remote-sub,authorization
+    authResponseHeaders:
+      - remote-user
+      - remote-name
+      - remote-email
+      - remote-groups
+      - remote-sub
+      - authorization
