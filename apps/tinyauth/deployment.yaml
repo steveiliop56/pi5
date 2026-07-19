@@ -18,7 +18,7 @@ spec:
       serviceAccountName: tinyauth-sa
       containers:
         - name: tinyauth
-          image: ghcr.io/tinyauthapp/tinyauth:v5.1.2-beta.2
+          image: ghcr.io/tinyauthapp/tinyauth:v5.1.2-beta.4
           ports:
             - containerPort: 3000
               name: web

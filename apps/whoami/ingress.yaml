@@ -1,51 +1,52 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: cloudflare-issuer
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd
-  name: whoami-ingress
-  namespace: whoami
+    annotations:
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+        tinyauth.apps.whoami.path.allow: /foo
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd,infra-tinyauth@kubernetescrd
+    name: whoami-ingress
+    namespace: whoami
 spec:
-  rules:
-    - host: ENC[AES256_GCM,data:TfCpRoSCm+4HHdRns/ENDkmoOx13rUCr77g=,iv:257nRt/FkE782oNOKV7f/2N4XEnbPEWe1/ocVjstzYk=,tag:sCIuh6C+QWfoUYxZmPiMnw==,type:str]
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: whoami-svc-cip
-                port:
-                  number: 80
-  tls:
-    - hosts:
-        - ENC[AES256_GCM,data:3guxj5lZZATVgcoQZtouKyEtSsn1lLoKOIU=,iv:J9W5m8LUaqQr2k6HtrRVv6F0SEYsSklgCdpaw/uMs88=,tag:2YzsO8v+KmbkRXJ4vOrgAA==,type:str]
-      secretName: whoami-cert
+    rules:
+        - host: ENC[AES256_GCM,data:o3U7y6HdKgQYkO8QMC21UoPhVQRVgdwMdSo=,iv:AEc0vua4K7F+UDiGFM8PgP3eL6+Wn24OYdSDhKmmm2Y=,tag:waIoazD/SvoDlyQ+4K/YDw==,type:str]
+          http:
+            paths:
+                - pathType: Prefix
+                  path: /
+                  backend:
+                    service:
+                        name: whoami-svc-cip
+                        port:
+                            number: 80
+    tls:
+        - hosts:
+            - ENC[AES256_GCM,data:6MPQc6xKy7Gr+P/kcP+fd/DzusLsjTAK/28=,iv:8cKw2PqFxqt91a+m7HHKnpNlM1uEHbMjsS5fAC85/98=,tag:Gk6eScN+W96MfikD7g1diA==,type:str]
+          secretName: whoami-cert
 sops:
-  lastmodified: "2026-06-23T17:32:10Z"
-  mac: ENC[AES256_GCM,data:+bvnAG8NbMnvO7RuZIdj9EtUhwEeAGMns/dLgKuDgGNJsrrtOJDaOnqTGw4XD8nKVDWAaPDp3/NbYCW0+JfSbBx8xAoSdwYYGgzTqnZNvGvMTdaXjGC4JdbUR7Fm9r0PRPJyizR8CDqUf8buFhYDIJP/eJROtbHNxZPBIYab1ws=,iv:xadYLKSrkPuN5YtSdBh6GGjWlaolJ27lmdiamK7iLy8=,tag:tg2C9C7ZxHTe4UYMmuem6Q==,type:str]
-  pgp:
-    - created_at: "2026-06-23T17:32:10Z"
-      enc: |-
-        -----BEGIN PGP MESSAGE-----
+    lastmodified: "2026-07-19T21:13:13Z"
+    mac: ENC[AES256_GCM,data:sbNO2iZKfGN4KITxC+SE/YajUHdmAUHVRAb7xP0booO9KcpWu4jXKcFfs1PtcJfqV+EI9cOLzT/eHtshS9cD5ejgPytyD603mXirHkNGhGqABBgAGfjm6PD9tbMKZc6nXqetKk3OPU1C9LJz/5xS7UjHOBpcCT7Dp1pr/0Qvpe4=,iv:itrziLAqR4RAmqyzxmnP2uj1lGciTAhy9u3rk48nIOA=,tag:drl5ITeyJH7AU2SbvoXyfA==,type:str]
+    pgp:
+        - created_at: "2026-07-19T21:13:13Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
 
-        hQIMA1R72LzcpgpmAQ//SW13uqREC0rEGvcuvdIx9Fe/5zfY2hAZdBe5iMGAcMst
-        VhRZZM5I5LwMIsl555EWUUztgfe2bluprvl52EFKO6UQ/cm8Sz47XnrEE7x77dsq
-        EkUXJHWcydifPxY8oUsrOeIGAhUqW5CguZ9ntPnhmzwIBIGOcXUvV1ajOIdRDBH2
-        JYTM0disU/4ckhQcVEPpzozkLtJafgGivo1GbBkac1+asWcgJPGpPH6iEn8/EQcF
-        P0aFUP8ysKkBAUF4Gby7MIMxLUQ/Fu5yHxQt4a3jBh2F2tYmT+E51diq/8O20eTg
-        woyDIUjU29nyLhDa0xQJXPBgYEzNsb5KhOtgeDNnkT00Mcti/MzVuoe+Wfrdb2kS
-        YSj2cihwKfmNVS/dhqdIpYUGOa5xpaACpZtoxGKstdH8wYuYlXCOR3ofHuT/s1MA
-        pKT1vkvyaI85ATjPcHuRZq9uFQ+BxF2Wdnx/rpr7zlMka42otuM77dSVN2PD9JRE
-        66El0pl6ztpOfs9vPDpQ5QDKxPMq6LK7veKZjM6Fg7W1ogcTPrSm60GgkuthAwj9
-        ZTxC65XqabQlkxYTn8gA4z7aZXXb4hgJZ4T4TrRIjOiOSCyz5uWy3dz9hAVI23Q6
-        csP/Ni2njBbrWI91EFPHnaKUYoyjNUr0C005DPkgSiHPaPBr1jgcnKxjKNb+eT/S
-        XAFdpu4nTgxBUBlnhG1R/3KlBEbUfQ1IR0K0xWCIVWKHphJhvdYm939FgDtofj4b
-        0bSJqGO+rXt57xFdDe5O1a/BBTjuXvdMfQE8BQHEgRfhX5GNDhilvRlbnXJG
-        =5RMz
-        -----END PGP MESSAGE-----
-      fp: 08083A92DBB719D2E10998259B44720A645D6802
-  encrypted_regex: ^(data|stringData|email|apiToken|host|hosts)$
-  version: 3.12.2
+            hQIMA1R72LzcpgpmAQ//WFaU2eKinQIZRoK8OqjrNZ4BSkyhnpGjZQCrDzp8tDyU
+            GPu98oRqYFdfwwMR0+r0DyrGH5vaSYX6ESBrlqSjL6/gPMPntjfLYHzu3A2pqoUr
+            KyK74Dm/IjKn5GWx5PykLzOd6Ge7kZV4GHHXNLERnm1VU8C9ZJlBF+ZSCfi6sfus
+            dVP3CeUqB73nLFMj7QtAnRaG7uFl8RwAj2DG/K1XFE9tLmONIC3mEcyodmpgTto3
+            eUNgDEpeQh+28zY7D2fg+RsAlmA2ijptXNTM5Sit633gDCphpCxCfdq4XCJVHOP8
+            kfJx4dfQM8NmKHPCg9BFgiWk5UQOuVo1cjYg0PL+2glPV+rP7i0Ze88xwUNzokMB
+            EnguW0H164NljsNCgmdMlRhjgObSib7QckueyQTRedkfArfUy5nQeUM5K2GCCCi3
+            6JudgGz4t8BcBVPYaTlarJH1FYHOSjJtcXIaM8OAHrwai3cNpls874nywduD5vfi
+            8+rosJ9S7+FXnhDh3Ch5HsI5rFixMcCaaYG5ypghQV9US72+4qAsTe0ZN23ZRUc3
+            seHSIXCcBfc4U7IfVI/ULm6q1WEEIdlC61IOLwrlMjOxeWhf0F7+aAOo0Hvqp0dW
+            W9rpCKMNvbRuaTw/UG9XIDwCkCy4YFiDPzk8MsRnJ4o1VNTBTfBjDrlsTSy0qYPS
+            XgEjZIfn5pfwl54WppSBeOTDIOrWy6e4eCmHkTh+7i1c9jigEHQSTuJB4lXBDcQj
+            471D59WMjn98NYEqhtC6/gm6roUvuh0FzdhEI8O5ABxXuKLgqK4CUYRkDNTKkJg=
+            =qpS4
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts)$
+    version: 3.12.2
