@@ -15,5 +15,5 @@ metadata:
   namespace: infra
 spec:
   forwardAuth:
-    address: http://tinyauth.tinyauth.svc.cluster.local:3000
+    address: http://tinyauth-svc-cip.tinyauth.svc.cluster.local:3000
     authResponseHeaders: remote-user,remote-name,remote-email,remote-groups,remote-sub,authorization
