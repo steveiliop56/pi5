@@ -3,6 +3,8 @@
   "extends": ["config:recommended"],
   "addLabels": ["renovate"],
   "automerge": false,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
   "kubernetes": {
     "managerFilePatterns": ["/(^|/)deployment\\.ya?ml$/"]
   },
@@ -12,5 +14,12 @@
   "kustomize": {
     "managerFilePatterns": ["/(^|/)kustomization\\.ya?ml$/"],
     "pinDigests": false
-  }
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    }
+  ]
 }
