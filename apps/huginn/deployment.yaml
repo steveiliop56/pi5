@@ -15,13 +15,6 @@ spec:
       labels:
         app: huginn
     spec:
-      initContainers:
-        - name: wait-for-postgres
-          image: postgres:17
-          command:
-            - /bin/sh
-            - -c
-            - until pg_isready --host=huginn-postgres-svc-cip --username=huginn; do sleep 2; done
       containers:
         - name: huginn
           image: ghcr.io/huginn/huginn:v2026.09.09
