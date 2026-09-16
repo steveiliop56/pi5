@@ -7,9 +7,10 @@ resources:
   - beszel-agent
   - adguard
   - obsidian-livesync
-  - youtrack
+  # - youtrack
   # - warpgate
-  - bifrost
+  # - bifrost
+  - huginn
   # - minecraft
   # - searxng
   - whoami

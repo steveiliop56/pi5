@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    annotations:
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd
+    name: huginn-ingress
+    namespace: huginn
+spec:
+    rules:
+        - host: ENC[AES256_GCM,data:BTPFRbu3+HltZAhMMDd7r0JrHSQOiKllsD8=,iv:yVTEHVLm9psVSZHwbAi5VTjxDjpeNZMC2j1zjEzlCLg=,tag:h7hNqMPiR6izTXQGZCjnfQ==,type:str]
+          http:
+            paths:
+                - pathType: Prefix
+                  path: /
+                  backend:
+                    service:
+                        name: huginn-svc-cip
+                        port:
+                            number: 3000
+    tls:
+        - hosts:
+            - ENC[AES256_GCM,data:OWGhbF1X09WAeQ8D5qcZ4W+/rm0Mkzn2VZg=,iv:ntIu70ovfF0wf0NYN9MGjF93M5Id5DZrdZQWuZSW/4s=,tag:Ub4FDVyrEa1JPTHWBFzCRg==,type:str]
+          secretName: huginn-cert
+sops:
+    lastmodified: "2026-09-16T20:42:16Z"
+    mac: ENC[AES256_GCM,data:gw4FZoZPGZvppXLytgbFKSff53TWwFyHFD6G1wXOkYDUAV7kPfNZKXkYkXrFSE4mVxxR3HTYN+zhKRi0EuEJzJME3ezXjgzpaueg3NVsX9I/z6DYaNobPT4rYWOW8yoYEbuFFSIZrs7UuOaSFMhNCuJ+SmM6BixvbN1IXrUpBAU=,iv:62VQIxqwr4/s6L81eGfl0bW3efk1EBunw4X+By3qs38=,tag:VdKCpYj7oLehwE4dl4nJyA==,type:str]
+    pgp:
+        - created_at: "2026-09-16T20:42:16Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmAQ/8DmK1DTz1f6qKloXgphmYzqNTBmRoYzsHLwbcTsslwZOQ
+            yY0E5R1YAg69OkF4sAH21qXqhI7NhDsZ80X16egwMkXwtZ6CY3U9us8NocIfr2AI
+            0tgnyt2mn+mFRK0ic23b4DdtPn3K/qoZsjroSBs5liwOIWGGJJy0dw0FF4FW6mJb
+            23QTAtUgB+qBpj5xlGU6TRXyr/b5VKDink5lvtbQeTkw5NJJPHNzJFrwiRvB5NaJ
+            fnngIsamtaRqAMqmNZ7evJwt5HK019eebvi8hYvCvLgemFiaci8SzGOorrArGNG/
+            8JaYcXud40PF4KSZ7d7WrXm6ZLga+ii/6ePSzssK+94gnPRAneHF9i5NOLBLFWdT
+            SdPZPA7Sy6GHIzMB9b36AZZ+dPxJlHvIY/8y++QuAr1ckEcLrKBGavkQ3JdEUKeh
+            V4WXVmfJdZI5xJWha8hBedZElkSstTDzJEzxXlijrkzhkxMiBvL50zbkXjg6+SIL
+            aTsE4gLoTS4Pj/+suzpzLtENHQZ/KvDu4yM1dnWesMFfhdOLVxPMTm8+vXH7HU+y
+            gQ0sW4QioAwW6Uupmk1tCJQp3+omwJZSO/k5rN7ZLBqtVUTb/I4YwRn8jpZ9bzz4
+            XhBeSb7J0TAd1mTpcf7IolhqIsxG9yYPyuh87s0hlN19wmB9ulTCamtwK2kI/c7S
+            XgGVs0ac1/6FkofxevdMuy2geQ82I/3PCdauKjFpgeDgYVgnZiEBoGVdF7DSfGkp
+            fs3GxWSIxdBsQy+oDXABJMxHdwowh8+fnvmKC2DyV12KfWyfWuQ8CrdEKMm7+nI=
+            =H0Vy
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts|tinyauth\.apps\.[a-zA-Z0-9_-]+\.config\.domain)$
+    version: 3.12.2

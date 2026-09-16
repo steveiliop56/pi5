@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: huginn-svc-cip
+  namespace: huginn
+spec:
+  selector:
+    app: huginn
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: http
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: huginn-postgres-svc-cip
+  namespace: huginn
+spec:
+  selector:
+    app: huginn-postgres
+  ports:
+    - name: postgres
+      protocol: TCP
+      port: 5432
+      targetPort: postgres
+  type: ClusterIP

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huginn-dp
+  namespace: huginn
+  labels:
+    app: huginn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: huginn
+  template:
+    metadata:
+      labels:
+        app: huginn
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:17
+          command:
+            - /bin/sh
+            - -c
+            - until pg_isready --host=huginn-postgres-svc-cip --username=huginn; do sleep 2; done
+      containers:
+        - name: huginn
+          image: ghcr.io/huginn/huginn:v2026.09.09
+          ports:
+            - containerPort: 3000
+              name: http
+          envFrom:
+            - secretRef:
+                name: huginn-secret
+          env:
+            - name: DATABASE_ADAPTER
+              value: postgresql
+            - name: DATABASE_HOST
+              value: huginn-postgres-svc-cip
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_NAME
+              value: huginn
+            - name: DATABASE_USERNAME
+              value: huginn
+            - name: DO_NOT_CREATE_DATABASE
+              value: "true"
+            - name: FORCE_SSL
+              value: "true"
+            - name: RAILS_ENV
+              value: production
+            - name: SEED_USERNAME
+              value: stavros
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huginn-postgres-dp
+  namespace: huginn
+  labels:
+    app: huginn-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: huginn-postgres
+  template:
+    metadata:
+      labels:
+        app: huginn-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: huginn
+            - name: POSTGRES_USER
+              value: huginn
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: huginn-secret
+                  key: DATABASE_PASSWORD
+          volumeMounts:
+            - name: huginn-postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: huginn-postgres-data
+          hostPath:
+            path: /mnt/ssd/app-data/huginn/postgres
+            type: DirectoryOrCreate
