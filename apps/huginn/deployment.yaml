@@ -25,6 +25,8 @@ spec:
             - secretRef:
                 name: huginn-secret
           env:
+            - name: TIMEZONE
+              value: Athens
             - name: DATABASE_ADAPTER
               value: postgresql
             - name: DATABASE_HOST
