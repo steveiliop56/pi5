@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: huginn
-          image: ghcr.io/huginn/huginn:v2026.09.21
+          image: ghcr.io/huginn/huginn:v2026.09.22
           ports:
             - containerPort: 3000
               name: http
