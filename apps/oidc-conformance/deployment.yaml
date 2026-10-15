@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oidc-conformance-mongo
+  namespace: oidc-conformance
+  labels:
+    app: oidc-conformance-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oidc-conformance-mongo
+  template:
+    metadata:
+      labels:
+        app: oidc-conformance-mongo
+    spec:
+      containers:
+        - name: oidc-conformance-mongo
+          image: mongo:6.0.13
+          ports:
+            - containerPort: 27017
+              name: mongo
+          readinessProbe:
+            exec:
+              command:
+                - mongosh
+                - --quiet
+                - --host
+                - 127.0.0.1
+                - --eval
+                - 'quit(db.adminCommand({ ping: 1 }).ok ? 0 : 1)'
+            periodSeconds: 5
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: oidc-conformance-mongo-data
+              mountPath: /data/db
+      volumes:
+        - name: oidc-conformance-mongo-data
+          hostPath:
+            path: /mnt/ssd/app-data/oidc-conformance/mongo
+            type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oidc-conformance-server
+  namespace: oidc-conformance
+  labels:
+    app: oidc-conformance-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oidc-conformance-server
+  template:
+    metadata:
+      labels:
+        app: oidc-conformance-server
+    spec:
+      initContainers:
+        - name: wait-for-mongo
+          image: mongo:6.0.13
+          command:
+            - /bin/sh
+            - -c
+            - |
+              until mongosh --quiet --host "$MONGODB_HOST" --eval 'quit(db.adminCommand({ ping: 1 }).ok ? 0 : 1)'; do
+                sleep 2
+              done
+          envFrom:
+            - secretRef:
+                name: oidc-conformance-secret
+      containers:
+        - name: oidc-conformance-server
+          image: registry.gitlab.com/openid/conformance-suite:release-v5.3.3
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - secretRef:
+                name: oidc-conformance-secret

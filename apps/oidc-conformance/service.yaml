@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oidc-conformance-cip
+  namespace: oidc-conformance
+spec:
+  selector:
+    app: oidc-conformance-server
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: http
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oidc-conformance-mongo-cip
+  namespace: oidc-conformance
+spec:
+  selector:
+    app: oidc-conformance-mongo
+  ports:
+    - name: mongo
+      protocol: TCP
+      port: 27017
+      targetPort: mongo
+  type: ClusterIP
