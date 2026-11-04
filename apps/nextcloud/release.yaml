@@ -1,0 +1,106 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: nextcloud-release
+    namespace: nextcloud
+spec:
+    interval: 1m
+    chart:
+        spec:
+            chart: nextcloud
+            version: 9.4.1
+            sourceRef:
+                kind: HelmRepository
+                name: nextcloud-repo
+    values:
+        ingress:
+            enabled: true
+            className: traefik
+            host: ENC[AES256_GCM,data:uz4bUYwPx1iDcwXs9HxXHWXT3c65wPBPNGWCUxg=,iv:6TJQJuBqPnh0+NULo5utjRFXeQrP8eNwmelI9rs+2zY=,tag:tF70mZWsa1/guTEtZD8jWw==,type:str]
+            annotations:
+                cert-manager.io/cluster-issuer: cloudflare-issuer
+                traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+                traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd
+            tls:
+                - hosts:
+                    - ENC[AES256_GCM,data:tcZl5hs+sPKNqV0hEFVZsUj2iSqCnzgXN6SFC0s=,iv:Pw/gf5YD8uo0PMTX2AkLdqRblsy/dag7pFUZs9naMbU=,tag:O+yAulykw7oA1kj+3Bf3iA==,type:str]
+                  secretName: nextcloud-cert
+        phpClientHttpsFix:
+            enabled: true
+            protocol: https
+        nextcloud:
+            host: ENC[AES256_GCM,data:83+OdN666rzvV7xBN9mo3Jio8z7OQzWTQ2nkY5w=,iv:LDAdmNUVIY3Wa7lPP7n7UVlR8g5zJp1gChDWKqv1Imc=,tag:pQoqsxGw1WVMG8NKt2P2XA==,type:str]
+            existingSecret:
+                enabled: true
+                secretName: nextcloud-app-secret
+                usernameKey: username
+                passwordKey: password
+        internalDatabase:
+            enabled: false
+        externalDatabase:
+            enabled: true
+            type: postgresql
+            database: nextcloud
+            user: nextcloud
+            existingSecret:
+                enabled: true
+                secretName: nextcloud-db-secret
+                usernameKey: username
+                passwordKey: userPassword
+        postgresql:
+            enabled: true
+            global:
+                postgresql:
+                    auth:
+                        username: nextcloud
+                        database: nextcloud
+                        existingSecret: nextcloud-db-secret
+                        secretKeys:
+                            adminPasswordKey: adminPassword
+                            userPasswordKey: userPassword
+                            replicationPasswordKey: replicationPassword
+            primary:
+                persistence:
+                    enabled: true
+                    existingClaim: nextcloud-db-pvc
+        redis:
+            enabled: false
+        externalRedis:
+            enabled: false
+        persistence:
+            enabled: true
+            existingClaim: nextcloud-app-pvc
+            nextcloudData:
+                enabled: true
+                existingClaim: nextcloud-data-pvc
+        cronjob:
+            enabled: true
+            type: cronjob
+            cronjob:
+                schedule: '*/5 * * * *'
+sops:
+    lastmodified: "2026-11-04T21:11:31Z"
+    mac: ENC[AES256_GCM,data:RxXaA4ecDlA8TCOZ6ZyGD1DLa0JHRAlZ1O+gMWKMtHiECPln9VbKhQlp483LbjvAF7L1TRKdU0lRCfo2RkgaTLsQU0RK9NRcHrNtcEkv1DuourNXfP9s1xomtkASU2ORQShe+ORaRsSx8rgvNwAWYWxWbLpma9b9xnQ5Valmy7g=,iv:vpEb9rBebyEucSLXUW7sueA1crVoNFA0NW6z7srDXGw=,tag:t/BJ9W9iQ1r7FPFcwttQ2w==,type:str]
+    pgp:
+        - created_at: "2026-11-04T21:11:31Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1R72LzcpgpmAQ//VnlQs9/7nLX/Bukh2y6BYq2JD/KCpWgyOXOLX7aqLBym
+            qB32miytWb6K7NcUvPMeUwHNPRAMPpY5mUpjUX37a/gFpqwmWlZgCk8XmXnFa7R+
+            62sP/vEQdkH9mrRTOLLsizysWvgPjypa7evTszjcgeV4LilLYhOULvLcqXDgNmH6
+            HQo8k361F1Isv0u5aJ+T+8RuaH7mh3s1ABcwzI8yuiYd/v+pRk4+J8gj8ZU9VJj6
+            ILksP/ZzpLtWYeQZYWIbdmF4kcEwM6qlUiue24MrkZeT/woIiPG7euNo2mJtdhS7
+            aD1VfohxCrKXdIV76oMu4+4JO7BAVdw7Jd0lqN7Xla19T5WkATn2/oudXAuZ+vvD
+            gZnT3Zk92HOQbHG/q4VAFbvCIFOYdXCA6feibhShiORRnwwt/3bjGhxDgHe99qY2
+            Qi/8cH5j90hJONPkaV1r+s66eFEhp4N8jYBB28vcU2mwvqoZOy7KGY2/k3n4rGpA
+            V2aAAwBIUGGCoQtST4a5OEN1e3K60mm8/3trbhhKrsAPDqDRTveKG41p5eEOXUuO
+            /mDdzM+mma/jUZE5/TL2IVDvtK1KsV76gMQj9FObpEw92wwHLiN47wtTqh1gJeXW
+            4kNRjmTp2/h1ES22m/Oj9kJ5lZpHBlO7qeIvxqI+j5Jino6Vu39Nf0Lzw6SepaLS
+            XgHj0IXeYEMl0KWfN2yXy1aJgVg37jGCXJ8gTot/le0bGOW3JU7QXmHyMxgTbzwj
+            GEOf0cR4+i7nbxo7XHVudz+ezK1cOVqSCDcRWagBXzrDbmEhay3JXhrSASCML8s=
+            =4syH
+            -----END PGP MESSAGE-----
+          fp: 08083A92DBB719D2E10998259B44720A645D6802
+    encrypted_regex: ^(data|stringData|email|apiToken|host|hosts|tinyauth\.apps\.[a-zA-Z0-9_-]+\.config\.domain)$
+    version: 3.12.2
