@@ -15,20 +15,20 @@ spec:
     values:
         ingress:
             enabled: true
-            host: ENC[AES256_GCM,data:okXPAPQ5eAlnONykU6anJsOc3EpHnGYRpKAQMrE=,iv:f3jN8JMfAu8yh+BSkGc4HsPwR4884jL6o52dKoPz1Dk=,tag:MQoYvj13WVpsItMU5mcvMg==,type:str]
+            host: ENC[AES256_GCM,data:iY3bZuTl002waT8elOEd9maB0eS1jKNs2A9gZ+0=,iv:Wi0Dq7JwL8Oral7MwWQpF/zr4+BRepdz1ss5FRZBHts=,tag:i367Be2NPthZqrzNhZEI1Q==,type:str]
             annotations:
                 cert-manager.io/cluster-issuer: cloudflare-issuer
                 traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
                 traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd
             tls:
                 - hosts:
-                    - ENC[AES256_GCM,data:AyzEEk6cJ72cQE/IKzMEV21wt4Leh87W2KFB4vA=,iv:ovSpCv8ZFYf0yc4/q10ghBoVlGDPtNk9lUBTdIY7fDM=,tag:npmHa1F/sq1427td7qWiPg==,type:str]
+                    - ENC[AES256_GCM,data:fZzY+fuKL9zyL4gvEo4etfYVLadh0QccVyH4Xqw=,iv:ttRCJZIejipRAVuVkY/DR6wzb/zLh7MX3AgC7PqRvB0=,tag:QYmE2liBB+TO25L92IgyQw==,type:str]
                   secretName: nextcloud-cert
         phpClientHttpsFix:
             enabled: true
             protocol: https
         nextcloud:
-            host: ENC[AES256_GCM,data:2e9tNoaQSJWExqS+OwkiZRC8BnHXhDiMF9gUw2M=,iv:Db6fuL2ndt7FPsFBi10agxBgmlHs8fBeF/cB2jWQpk0=,tag:F+zHcsYoAvxWDuBsI1mrCg==,type:str]
+            host: ENC[AES256_GCM,data:C9kDB/weUIpHeyIiQFZkUhsClqLCatH9+oaO3TA=,iv:cPeSpBbJZupBGPy9su9n6EWlHDGMgpx7TT1Sm7iW2qI=,tag:6TSqP2yzX2WKjXBQUVrlMg==,type:str]
             existingSecret:
                 enabled: true
                 secretName: nextcloud-app-secret
@@ -83,28 +83,34 @@ spec:
         cronjob:
             enabled: true
             type: sidecar
+        livenessProbe:
+            enabled: false
+        readinessProbe:
+            enabled: false
+        startupProbe:
+            enabled: false
 sops:
-    lastmodified: "2026-11-05T14:58:50Z"
-    mac: ENC[AES256_GCM,data:JuiEMC3yX0RyQPlG32dXjQOox5bp4cJjyajC45Ox2JQfCbqgeUmGyM6sgJlRqpHVpNqtM4mzfhC7OMcEavh7YfLMvHRa6g4YV58C75WYsJS+4nKqReBOGRkQRzEPW2anYe1ahOnjwieqDGTf23/eB3RFpHlNulZVopVyjirxOgc=,iv:ClRMcVD87i4VEQhqXTv1Fj7FqkybZwTBBMV5etOzt4A=,tag:Jc17A7SMHJzBhSw+Dc2mRA==,type:str]
+    lastmodified: "2026-11-05T16:23:35Z"
+    mac: ENC[AES256_GCM,data:5UE/rxIRQWux+yYNv2iAWwV4CG3P7uz5AprM4n9yHc21yIT/7GyLO65LMA3powVahAnI+VQKkIyLv+t1VKiNI7+u3HiTyaCuV8BWeQp28+xhwFJh6q7PBKYKrbufOQKG7p6f9UjpX3rmncOKOmuLQUAM4qLIQyM6cY1bbq3ouKc=,iv:9PTbuEkL3rQ0hAl4WRyDMsJiRkUCdXHdvprBkOTJ4KU=,tag:GbQxN/44J5yWmrDdUVjjqQ==,type:str]
     pgp:
-        - created_at: "2026-11-05T14:58:50Z"
+        - created_at: "2026-11-05T16:23:35Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA1R72LzcpgpmAQ//VMoI0oA/gbxSwBiXZl5Qw22l0rFI1BgoE/ONcN25w92A
-            dlFFSUxKS0K73eZjtHGGKgfuJSZ4XjZFWRBl4dfR4rXDs5Ta65NUHgCcTI3BMXdt
-            i0QG3kIX5XG69mmUtLl1hKXgL4YXY/yANTg8GCVitQ77iwbj1MHvqVCVJ6s4/5FO
-            2r+j3QMU9XPf0OHx+OPy3OZaJkzPIolvsC+QZrA0B8RWuTs360xzdanVOnCrxkvn
-            sHOkP0IwwIgbT5gsM0eX1XqgZeTS2IX0nkZZRpqGuVzGdo8LJE4CsEjZagkNYrt7
-            GLORWVHs2tNSodeYtNR7WeJQJy7BCOEeMIgVrbMJUNVKtXoMrPnteyEhUb9ZJV/C
-            bXAXakJZ2CSsnBR8iqjpt7gUVgitL8mV2jOFHMEF11qyUfsWldvRW0muhpz0ge/c
-            jzr2RA/ivJv38k/9ACNyTsttlMIMaiXv69IkEbsh2PGyM83NPh+E945o47KmaTNK
-            tb2iIJfYc7xfaISSaw7ijTEfSFnK2cndyPW0LWw40AUDvCW7h/3Hv/llqPcPEVMA
-            RRwfJpGasfmwgnEdddQefSuCc7/yklRRR5FNYZfQAX0FR39pD2SbrXlkWJD1yCC1
-            UrMxkbuJRvhfc+LqUX4zlxTr0K955wzNYLeUS7drzoWKB6hv2RtIxTlqhQXCqCbS
-            XgF4HeOA6GOJCOUJfnDJe/OBAZZo3ZGbs9Fi30jnlrSq4cTdwBo4GpUReK5Tq4X3
-            M0JEWROzMVpLGTzp+b+b6CsbkMtD2Y9z0BYgIbXzCsPWw084x6eGHCNy4N429kA=
-            =VBLx
+            hQIMA1R72LzcpgpmAQ/9Hn5NYF12s2vhD3GYD8FwixqUtP9PhF9AjDuyfwjM3Pz1
+            t5diGa75wFZ/jztuwYFcOzREvIo7ZA0U7gRy7Z4OqN1h+LwXR8afatkDzMQ1jxTV
+            FyiuyBT+KTJ8I0VMqkfFslXm5R2tvmEfQHMkDxgYh5EOeBDUcwfV8jutjXv/QZz5
+            Mv8FGW5NwINrruIoYqF+fIxKUSjsHdwOaXKsKiXSWDUKhUYujPxqU2anq8wmAwss
+            ALvETeW08a+cKwqyv+DJctM6s50kelYkfJT9586pjDTp4pjM/6nfeW9DjmSApocJ
+            b9OG/TuagOMKuFy/Cm62R0KYxlH+YYA9o6VJ0cViuDNJxxuUxnnRhMqQ0ldpGM53
+            2362yqJ9woHUDKKwvkVdEnygl7uu/xD67i41ZWubmovVOYsOXiGcGwCzDyEy5WMP
+            Wwxk5m02JNUcSKOHu0m+Obzrf42nvU0NKKCLOGLFRgcwB+unBAYjh3Sok1+a3wRs
+            m8319NusagjGr2+U5qOy75D+A3iiXX5XjWDFpkR8Uy5ZePFA8wBsv79QTj02Sv7Z
+            Y0DhANstuFloOvbBvzsKteS+bSG9XXJIGchHSd0p6r+iV20ZHD4HvqeUXRXfnTsA
+            dFvaWin/U+Cl3SkpcvSYoN/YBSC3m84RzZz6NewZXJNb2JJLUCTQsUNi82+WREnS
+            XAGz2SB/hRseV7eYyCBrvgDsv45kdYzNMHMpCzRYhCNYmLrI6AOjGWGcFWv3CXgX
+            PSa/YZn2IhMu6crCOOrgnnUHr9cQxN7crl23eN5J+mJf7JvYsBU+sDPOnvvT
+            =4bh7
             -----END PGP MESSAGE-----
           fp: 08083A92DBB719D2E10998259B44720A645D6802
     encrypted_regex: ^(data|stringData|email|apiToken|host|hosts|tinyauth\.apps\.[a-zA-Z0-9_-]+\.config\.domain)$
