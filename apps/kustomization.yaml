@@ -15,4 +15,4 @@ resources:
   # - searxng
   - whoami
   - oidc-conformance
-  - nextcloud
+  # - nextcloud
