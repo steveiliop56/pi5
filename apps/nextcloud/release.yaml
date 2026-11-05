@@ -15,21 +15,20 @@ spec:
     values:
         ingress:
             enabled: true
-            className: traefik
-            host: ENC[AES256_GCM,data:0N/rwcknBrSjECholSrXaxKgWSX0+SmQ7n6TONw=,iv:QKGV+TBQG6VMiVzR8ZAnPTziBerkMD6u4q4CjZYOtuU=,tag:Fcsx4y6psCJbrYGxbxtD/w==,type:str]
+            host: ENC[AES256_GCM,data:okXPAPQ5eAlnONykU6anJsOc3EpHnGYRpKAQMrE=,iv:f3jN8JMfAu8yh+BSkGc4HsPwR4884jL6o52dKoPz1Dk=,tag:MQoYvj13WVpsItMU5mcvMg==,type:str]
             annotations:
                 cert-manager.io/cluster-issuer: cloudflare-issuer
                 traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
                 traefik.ingress.kubernetes.io/router.middlewares: infra-redirect-https@kubernetescrd
             tls:
                 - hosts:
-                    - ENC[AES256_GCM,data:wrruCG9DiuW5egcLwzOikPAR9e2jEC0KiabfifE=,iv:L2IvNatBXvT0H3p+MfVMziEyMq5zcgmbTQGXl9/IN34=,tag:wh7YBNRX0ljO4N1cX9uR9Q==,type:str]
+                    - ENC[AES256_GCM,data:AyzEEk6cJ72cQE/IKzMEV21wt4Leh87W2KFB4vA=,iv:ovSpCv8ZFYf0yc4/q10ghBoVlGDPtNk9lUBTdIY7fDM=,tag:npmHa1F/sq1427td7qWiPg==,type:str]
                   secretName: nextcloud-cert
         phpClientHttpsFix:
             enabled: true
             protocol: https
         nextcloud:
-            host: ENC[AES256_GCM,data:PS+lMRavE8ZuMM1Nqhh4Mb5Lb1nD4IgDNxTC4ac=,iv:jeFOq7Qe9E7PIUGwh3at4cNj/z9+ISLUMdIi9Rf7Q6s=,tag:yXNK2RcSTSO9do3nSrt9MA==,type:str]
+            host: ENC[AES256_GCM,data:2e9tNoaQSJWExqS+OwkiZRC8BnHXhDiMF9gUw2M=,iv:Db6fuL2ndt7FPsFBi10agxBgmlHs8fBeF/cB2jWQpk0=,tag:F+zHcsYoAvxWDuBsI1mrCg==,type:str]
             existingSecret:
                 enabled: true
                 secretName: nextcloud-app-secret
@@ -64,9 +63,17 @@ spec:
                     enabled: true
                     existingClaim: nextcloud-db-pvc
         redis:
-            enabled: false
-        externalRedis:
-            enabled: false
+            enabled: true
+            auth:
+                enabled: true
+                existingSecret: nextcloud-redis-secret
+                existingSecretPasswordKey: password
+            master:
+                persistence:
+                    enabled: false
+                replica:
+                    persistence:
+                        enabled: false
         persistence:
             enabled: true
             existingClaim: nextcloud-app-pvc
@@ -77,27 +84,27 @@ spec:
             enabled: true
             type: sidecar
 sops:
-    lastmodified: "2026-11-04T21:43:26Z"
-    mac: ENC[AES256_GCM,data:SpqpO1Wzdyt1At3pV7Tw5I1AsJkOp1mu9a0gOdcRWNtVGGCqXqcn9Z3u1Ova2BsZzFcbdX4n2wmffeqILoF+z1fAFJNZPfrKSWsFf2x+wM9EovmG4ePFUnkT+vJYzwh/Be8H2fmqIfXFG13Twqtx/Wt8xrJ53DVORmog5UzeEKM=,iv:OzF3Qkkg9OQBo1cffeanSYAUqCbIeNMpxmafRfpYOK0=,tag:uA9jDh9Itbxaqkd453m8dw==,type:str]
+    lastmodified: "2026-11-05T14:58:50Z"
+    mac: ENC[AES256_GCM,data:JuiEMC3yX0RyQPlG32dXjQOox5bp4cJjyajC45Ox2JQfCbqgeUmGyM6sgJlRqpHVpNqtM4mzfhC7OMcEavh7YfLMvHRa6g4YV58C75WYsJS+4nKqReBOGRkQRzEPW2anYe1ahOnjwieqDGTf23/eB3RFpHlNulZVopVyjirxOgc=,iv:ClRMcVD87i4VEQhqXTv1Fj7FqkybZwTBBMV5etOzt4A=,tag:Jc17A7SMHJzBhSw+Dc2mRA==,type:str]
     pgp:
-        - created_at: "2026-11-04T21:43:26Z"
+        - created_at: "2026-11-05T14:58:50Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA1R72LzcpgpmAQ//RORgj7HI/GO6XFyqNXwY5SUpSBjeCAPJCDD2C1qDfN1u
-            FFKrjGzBZq2Rn2FllGXY8U3dhdWgrnw4ypBifE3cZhRN1KhFTMIWawhiWNVDL/Xk
-            xxmlEHVlxhLhHBlLFIDBfnXJXYhvuiFHr740ZAEJ+o2ao1+Yq5vjXSldayjblxLP
-            GmdiQwczXhir510uPshvOguC2C5RyYbMK5se5zJG8YK8X03rDu3JZJ6bEvxqbbPv
-            amqlHcX6p+oRq9ITm5rQbUQvQNSIvhPc2618vQO3yKIcVWfdLrsDfl7BoFY3dSA+
-            iFyaBfKn017Ay+BvT5aoyccdQOPdfCQrbRzEEoUGVWApYBA96aWqFgzmHjcOavQO
-            zFSqvBCB7oZYmbTbyyTOkwrjoTDLtIG5PmSr9aUNRcHweFXacialYveVfO3uFPNS
-            AO73E/7o+CNSY94QwqNFeByrZXC+4rfa9w468Kzn3ailCCen2Pxzc+uQSwExG/e2
-            kS8enHBobdedR8VZqGd+R4qOFzdqyie6Px45ws1Ov5zlyCnfiA+yHvmZJdwJ62mb
-            5P2Z0bUtt2YdRZ5eHxtYXRocQ/D555clDd1KyCfy0SKPD6MxbPmNT4t1GtO6JVL7
-            /kjXRHW1KrEiqu6GNCaoiQPJRldMlFkglbShdPqt2+sbUe+P/KhBfLqMSU30RbnS
-            XAG1LlklwSEANDE4BV+vmkHnpA62A0GB0VVjCkfOFVI14Gp8FQZ1gHS7TXVkTXwB
-            NKAdw0fhk/Qxs8UxxUd4dxCg7Nk6WdAem+sYRr7sPw/2wFPKlIQ6xOHipYrH
-            =iPaK
+            hQIMA1R72LzcpgpmAQ//VMoI0oA/gbxSwBiXZl5Qw22l0rFI1BgoE/ONcN25w92A
+            dlFFSUxKS0K73eZjtHGGKgfuJSZ4XjZFWRBl4dfR4rXDs5Ta65NUHgCcTI3BMXdt
+            i0QG3kIX5XG69mmUtLl1hKXgL4YXY/yANTg8GCVitQ77iwbj1MHvqVCVJ6s4/5FO
+            2r+j3QMU9XPf0OHx+OPy3OZaJkzPIolvsC+QZrA0B8RWuTs360xzdanVOnCrxkvn
+            sHOkP0IwwIgbT5gsM0eX1XqgZeTS2IX0nkZZRpqGuVzGdo8LJE4CsEjZagkNYrt7
+            GLORWVHs2tNSodeYtNR7WeJQJy7BCOEeMIgVrbMJUNVKtXoMrPnteyEhUb9ZJV/C
+            bXAXakJZ2CSsnBR8iqjpt7gUVgitL8mV2jOFHMEF11qyUfsWldvRW0muhpz0ge/c
+            jzr2RA/ivJv38k/9ACNyTsttlMIMaiXv69IkEbsh2PGyM83NPh+E945o47KmaTNK
+            tb2iIJfYc7xfaISSaw7ijTEfSFnK2cndyPW0LWw40AUDvCW7h/3Hv/llqPcPEVMA
+            RRwfJpGasfmwgnEdddQefSuCc7/yklRRR5FNYZfQAX0FR39pD2SbrXlkWJD1yCC1
+            UrMxkbuJRvhfc+LqUX4zlxTr0K955wzNYLeUS7drzoWKB6hv2RtIxTlqhQXCqCbS
+            XgF4HeOA6GOJCOUJfnDJe/OBAZZo3ZGbs9Fi30jnlrSq4cTdwBo4GpUReK5Tq4X3
+            M0JEWROzMVpLGTzp+b+b6CsbkMtD2Y9z0BYgIbXzCsPWw084x6eGHCNy4N429kA=
+            =VBLx
             -----END PGP MESSAGE-----
           fp: 08083A92DBB719D2E10998259B44720A645D6802
     encrypted_regex: ^(data|stringData|email|apiToken|host|hosts|tinyauth\.apps\.[a-zA-Z0-9_-]+\.config\.domain)$
